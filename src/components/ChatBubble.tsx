@@ -7,7 +7,7 @@ const ASSISTANT_API_URL = 'https://swizbot.vercel.app/api/chat';
 export default function ChatBubble() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { from: 'bot', text: "Hi! I'm Swiz AI Assistant. How can I help you today?" }
+    { from: 'bot', text: "Hi! I'm Swiz AI Assistant. Here to help on matters regarding SwizFusion AI Tech Hub. How can I help you today?" }
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -70,11 +70,11 @@ export default function ChatBubble() {
 
       {/* Modal Chat Window */}
       {open && (
-        <div className="fixed z-50 inset-0 flex items-end sm:items-center justify-center bg-black/30">
+  <div className="fixed z-50 bottom-24 right-6 flex items-end justify-end bg-transparent">
           {/* Modal background click closes chat */}
-          <div className="absolute inset-0" onClick={() => setOpen(false)} />
-          <div className="relative w-full max-w-md mx-auto bg-background border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-fadeIn"
-            style={{ minHeight: 480, maxHeight: '90vh' }}>
+          <div className="fixed inset-0 bg-black/30" onClick={() => setOpen(false)} />
+          <div className="relative w-full max-w-md bg-background border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-fadeIn"
+            style={{ minHeight: 480, maxHeight: '90vh', width: '100%', maxWidth: 380 }}>
             {/* Modal Header */}
             <div className="flex items-center justify-between bg-primary/90 text-primary-foreground px-4 py-2">
               <span className="font-semibold">Swiz AI Assistant</span>
@@ -105,7 +105,7 @@ export default function ChatBubble() {
             <form onSubmit={sendMessage} className="flex items-center gap-2 border-t px-3 py-2 bg-background">
               <input
                 type="text"
-                className="flex-1 rounded-full border px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                className="flex-1 rounded-full border px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary bg-white text-gray-900 placeholder-gray-400"
                 placeholder="Type your message..."
                 value={input}
                 onChange={e => setInput(e.target.value)}

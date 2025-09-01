@@ -9,6 +9,7 @@ import ContactForm from '../components/ContactForm';
 import Footer from '../components/Footer';
 import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
+import ChatBubble from '../components/ChatBubble';
 
 export default function Index() {
   return (
@@ -25,6 +26,7 @@ export default function Index() {
         <ContactForm />
       </main>
       <Footer />
+      <ChatBubble />
     </div>
   );
 }

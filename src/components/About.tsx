@@ -74,7 +74,7 @@ const About = () => {
               transition={{ duration: 0.6, delay: 0.6 }}
               className="text-lg text-muted-foreground leading-relaxed"
             >
-              Born from a vision to bridge global innovation, SwizFusion AI Tech Hub was founded by an 
+              Born from a vision to bridge global innovation, SwizFusion AI Tech Hub was founded by Eng Erick Mwangi an 
               Ivy League engineer with deep roots in South Korea's dynamic tech ecosystem. Our founder's 
               unique journey from Seoul's cutting-edge tech landscape to Silicon Valley's innovation hub 
               brings a truly global perspective to AI and robotics development.

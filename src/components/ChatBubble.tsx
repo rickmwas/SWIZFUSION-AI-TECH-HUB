@@ -11,7 +11,7 @@ export default function ChatBubble() {
       <button
         aria-label="Open chat assistant"
         onClick={() => setOpen((v) => !v)}
-  className="fixed z-50 bottom-20 right-6 bg-primary text-primary-foreground shadow-xl rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105 focus:outline-none"
+  className="fixed z-50 bottom-20 right-6 bg-primary text-primary-foreground shadow-[0_12px_48px_rgba(99,102,241,0.45)] rounded-full flex items-center justify-center transition-all duration-300 hover:scale-150 hover:shadow-[0_32px_96px_rgba(99,102,241,0.65)] hover:translate-y-[-12px] focus:outline-none animate-float"
         style={{ width: bubbleSize, height: bubbleSize }}
       >
         {/* Robot icon */}
@@ -56,6 +56,14 @@ export default function ChatBubble() {
         }
         .animate-fadeIn {
           animation: animate-fadeIn 0.3s cubic-bezier(.4,0,.2,1);
+        }
+        @keyframes float {
+          0% { transform: translateY(0); }
+          50% { transform: translateY(-8px); }
+          100% { transform: translateY(0); }
+        }
+        .animate-float {
+          animation: float 2.5s ease-in-out infinite;
         }
       `}</style>
     </>

@@ -27,9 +27,10 @@ export default function ChatBubble() {
     setInput('');
     setLoading(true);
     try {
-      const url = `${ASSISTANT_API_URL}?message=${encodeURIComponent(userMsg.text)}`;
-      const res = await fetch(url, {
-        method: 'GET',
+      const res = await fetch(ASSISTANT_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMsg.text }),
       });
       const data = await res.json();
       setMessages((msgs) => [

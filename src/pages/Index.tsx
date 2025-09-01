@@ -15,11 +15,20 @@ export default function Index() {
     const handleScroll = () => {
       if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 2) {
         if (!document.getElementById('mcjs')) {
+          console.log('[Mailchimp] Injecting popup script...');
           const script = document.createElement('script');
           script.id = 'mcjs';
           script.async = true;
           script.src = 'https://chimpstatic.com/mcjs-connected/js/users/2bff5011ab0f0afa69552f7a8/02a4072ee0e339890111721ec.js';
+          script.onload = () => {
+            console.log('[Mailchimp] Script loaded.');
+          };
+          script.onerror = () => {
+            console.error('[Mailchimp] Failed to load script.');
+          };
           document.body.appendChild(script);
+        } else {
+          console.log('[Mailchimp] Script already injected.');
         }
       }
     };

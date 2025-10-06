@@ -30,19 +30,19 @@ const ContactForm = () => {
     {
       icon: <Mail className="w-6 h-6" />,
       title: "Email Us",
-      content: "hello@swizfusion.com",
+      content: "swizfusiontech@gmail.com",
       description: "Send us an email anytime"
     },
     {
       icon: <Phone className="w-6 h-6" />,
       title: "Call Us",
-      content: "+1 (555) 123-4567",
+      content: "+254 (113) 242-983",
       description: "Mon-Fri from 8am to 6pm PST"
     },
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Visit Us",
-      content: "Silicon Valley, CA",
+      content: "Silicon Savannah, Nairobi",
       description: "Schedule a meeting at our office"
     }
   ];

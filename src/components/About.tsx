@@ -45,7 +45,7 @@ const About = () => {
           >
             <div className="flex items-center gap-6 mb-6">
               <img
-                src="/images/my profile.jpg"
+                src="/images/gemini me.png"
                 alt="Founder profile"
                 className="w-28 h-28 rounded-full object-cover shadow-lg border-4 border-primary/30 bg-background"
                 style={{ minWidth: '7rem' }}

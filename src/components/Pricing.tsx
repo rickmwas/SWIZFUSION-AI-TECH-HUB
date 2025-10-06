@@ -16,6 +16,7 @@ const Pricing = () => {
       name: "Starter",
       icon: <Star className="w-6 h-6" />,
       price: "$99",
+      priceValue: 99,
       period: "/month",
       description: "Perfect for small businesses and startups getting started with AI",
       features: [
@@ -28,12 +29,14 @@ const Pricing = () => {
       buttonText: "Get Started",
       buttonVariant: "outline" as const,
       popular: false,
-      gradient: "from-blue-500 to-cyan-500"
+      gradient: "from-blue-500 to-cyan-500",
+  planCode: "PLN_kvglp1eyb09je5"
     },
     {
       name: "Professional",
       icon: <Zap className="w-6 h-6" />,
       price: "$299",
+      priceValue: 299,
       period: "/month",
       description: "Advanced features for growing businesses and development teams",
       features: [
@@ -48,12 +51,14 @@ const Pricing = () => {
       buttonText: "Start Free Trial",
       buttonVariant: "default" as const,
       popular: true,
-      gradient: "from-purple-500 to-pink-500"
+      gradient: "from-purple-500 to-pink-500",
+  planCode: "PLN_t5avm89dzs1iz25"
     },
     {
       name: "Enterprise",
       icon: <Crown className="w-6 h-6" />,
       price: "Custom",
+      priceValue: 0,
       period: "",
       description: "Tailored solutions for large organizations with specific requirements",
       features: [
@@ -69,9 +74,30 @@ const Pricing = () => {
       buttonText: "Contact Sales",
       buttonVariant: "outline" as const,
       popular: false,
-      gradient: "from-orange-500 to-red-500"
+      gradient: "from-orange-500 to-red-500",
+  planCode: "PLN_xtb5h4ebceat7mr"
     }
   ];
+// Paystack script loader
+  const loadPaystackScript = () => {
+    if (window.PaystackPop) {
+      console.log('Paystack script already loaded.');
+      return Promise.resolve();
+    }
+    return new Promise((resolve) => {
+      const script = document.createElement('script');
+      script.src = 'https://js.paystack.co/v1/inline.js';
+      script.onload = () => {
+        console.log('Paystack script loaded.');
+        resolve();
+      };
+      script.onerror = () => {
+        console.error('Failed to load Paystack script.');
+        resolve();
+      };
+      document.body.appendChild(script);
+    });
+  };
 
   const scrollToContact = () => {
     const element = document.getElementById('contact');
@@ -79,6 +105,43 @@ const Pricing = () => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+    // Paystack checkout handler
+    const handlePaystackCheckout = async (plan) => {
+      console.log('Paystack button clicked for plan:', plan);
+      // For Enterprise, fallback to contact scroll
+      if (!plan.planCode || plan.priceValue === 0) {
+        scrollToContact();
+        return;
+      }
+      await loadPaystackScript();
+      if (!window.PaystackPop) {
+        alert('Paystack script failed to load.');
+        console.error('window.PaystackPop is not available after script load.');
+        return;
+      }
+      // Use verified email, remove currency, call openIframe
+      const paystackConfig = {
+        key: 'pk_test_f10248c94da9df8ae8ffcaa84a6158e197e660ac',
+        email: 'rickmwasswiz@gmail.com',
+        plan: plan.planCode,
+        callback: function (response) {
+          alert('Payment complete! Reference: ' + response.reference);
+          console.log('Paystack payment success:', response);
+        },
+        onClose: function () {
+          alert('Payment window closed');
+        },
+        label: plan.name + ' Subscription',
+        metadata: {
+          custom_fields: [
+            { display_name: 'Plan', variable_name: 'plan_name', value: plan.name }
+          ]
+        }
+      };
+      console.log('Calling PaystackPop.setup with config:', paystackConfig);
+      window.PaystackPop.setup(paystackConfig).openIframe();
+    };
 
   return (
     <section id="pricing" className="py-20">
@@ -145,13 +208,13 @@ const Pricing = () => {
                       ))}
                     </div>
 
-                    <Button
-                      onClick={scrollToContact}
-                      variant={plan.buttonVariant}
-                      className={`w-full ${plan.popular ? 'bg-primary hover:bg-primary/90 text-primary-foreground' : ''}`}
-                    >
-                      {plan.buttonText}
-                    </Button>
+                                <Button
+                                  onClick={() => handlePaystackCheckout(plan)}
+                                  variant={plan.buttonVariant}
+                                  className={`w-full ${plan.popular ? 'bg-primary hover:bg-primary/90 text-primary-foreground' : ''}`}
+                                >
+                                  {plan.buttonText}
+                                </Button>
                   </CardContent>
                 </Card>
               </motion.div>
